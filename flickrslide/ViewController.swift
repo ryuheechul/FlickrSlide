@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import Haneke
 
 class ViewController: UIViewController {
+
+    @IBOutlet var imgV : UIImageView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        let url = NSURL(string: "https://farm9.staticflickr.com/8255/29003563911_af1999f62c_m.jpg")
+        imgV?.hnk_setImageFromURL(url!)
     }
 
     override func didReceiveMemoryWarning() {
