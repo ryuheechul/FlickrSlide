@@ -12,6 +12,7 @@ import Haneke
 class ViewController: UIViewController {
 
     @IBOutlet var imgV : UIImageView?
+    var delivery: FlickrDelivery?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,9 @@ class ViewController: UIViewController {
 
         let url = NSURL(string: "https://farm9.staticflickr.com/8255/29003563911_af1999f62c_m.jpg")
         imgV?.hnk_setImageFromURL(url!)
+
+        delivery = FlickrDelivery()
+        delivery?.get(1)
     }
 
     override func didReceiveMemoryWarning() {
