@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     var timer = NSTimer()
     var isFetching = false
     var page = 0
-    var isShowing = true
 
     @IBAction func buttonTapped(sender: AnyObject) {
         if tf?.isFirstResponder() == true {
@@ -61,6 +60,10 @@ class ViewController: UIViewController {
             self.fetchPhotos()
         }
 
+        setupTitlebar()
+    }
+
+    func setupTitlebar() {
         let titlebar:UIView? = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 40))
         tf = UITextField(frame: CGRect(x: 0, y: 0, width: 30, height: 40))
         let lbl:UILabel? = UILabel(frame: CGRect(x: 30, y: 0, width: 20, height: 40))
@@ -89,10 +92,10 @@ class ViewController: UIViewController {
             }
             return
         }
-
-        else if textNum < 1 {
+//      Do nothing for less than 1 so that user can enter 2 or bigger
+//        else if textNum < 1 {
 //            textField.text = "1"
-        }
+//        }
         else if textNum > 10 {
             textField.text = "10"
         }
@@ -130,27 +133,26 @@ class ViewController: UIViewController {
         }
 
         if let url = NSURL(string: urlString!) {
-
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { 
-                self.imgV?.hnk_setImageFromURL(url)
-            })
-            UIView.animateWithDuration(0.5, animations: {
-                self.imgV?.alpha = 0
-            }, completion: { (Bool) in
-
-                UIView.animateWithDuration(0.5, animations: {
-                    self.imgV?.alpha = 1
-                })
-            })
-
+            animatePhoto(url)
         }
+    }
+
+    func animatePhoto(url: NSURL) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+            self.imgV?.hnk_setImageFromURL(url)
+        })
+        UIView.animateWithDuration(0.5, animations: {
+            self.imgV?.alpha = 0
+        }, completion: { (Bool) in
+            UIView.animateWithDuration(0.5, animations: {
+                self.imgV?.alpha = 1
+            })
+        })
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
