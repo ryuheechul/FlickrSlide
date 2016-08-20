@@ -11,14 +11,25 @@ import Haneke
 
 class FlickrDelivery: NSObject {
 
-    func get(index: Int? ) -> Int? {
+    func get(page: Int, completion: (urls: Array<String>) -> Void ) {
         let cache = Cache<JSON>(name: "github")
-        let URL = NSURL(string: "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1")!
+        let urlString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1&page=\(page)"
+
+        print(urlString)
+        let URL = NSURL(string: urlString)!
+
 
         cache.fetch(URL: URL).onSuccess { JSON in
-            print(JSON)
-        }
+            var arr = [String]()
 
-        return 1
+            let ab: Array? = (JSON.dictionary?["items"] as! NSArray) as Array
+
+            for a in ab! {
+                let url:String = (a["media"]!)!["m"] as! String
+                arr.append(url)
+            }
+
+            completion(urls: arr)
+        }
     }
 }

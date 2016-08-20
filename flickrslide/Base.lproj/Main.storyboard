@@ -27,7 +27,11 @@
                                 <items>
                                     <barButtonItem id="Gq1-Lh-Ico"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Sjd-8X-Qim"/>
-                                    <barButtonItem systemItem="play" id="Yma-oq-cPR"/>
+                                    <barButtonItem systemItem="pause" id="Yma-oq-cPR">
+                                        <connections>
+                                            <action selector="startPause:" destination="BYZ-38-t0r" id="blY-Xm-vIR"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="JBL-jc-DhX"/>
                                     <barButtonItem id="S7N-gg-afL"/>
                                 </items>
